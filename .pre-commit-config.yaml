@@ -1,0 +1,79 @@
+---
+# All of the pre-commit hooks here actually use the `pytyhon` pre-commit language
+# setting. However, for the python language setting, pre-commit will create and manage
+# a cached virtual environment for each hook ID and do a bare `pip install <repo>` into
+# the venv to setup the hook. This can result in conflicting dependency versions between
+# the version installed to the pre-commit venv and the version installed to the Poetry
+# venv specified in the lockfile.
+#
+# The solution is to specify `language: system` for all hooks and then install the
+# required dependencies to the Poetry venv. The `system` language skips the isolated
+# venv creation and looks for the entrypoint specified by the hook in the global
+# environment which, if running in the Poetry venv, will find the entrypoint provided
+# by the Poetry-managed dependency.
+#
+repos:
+  - repo: local
+    hooks:
+      - id: end-of-file-fixer
+        name: end-of-file-fixer
+        entry: end-of-file-fixer
+        language: system
+        types:
+          - text
+
+      - id: fix-encoding-pragma
+        name: fix-encoding-pragma
+        entry: fix-encoding-pragma
+        language: system
+        args:
+          - "--remove"
+        types:
+          - python
+
+      - id: trailing-whitespace-fixer
+        name: trailing-whitespace-fixer
+        entry: trailing-whitespace-fixer
+        language: system
+        types:
+          - text
+
+      - id: check-merge-conflict
+        name: check-merge-conflict
+        entry: check-merge-conflict
+        language: system
+        types:
+          - text
+
+      - id: reorder-python-imports
+        name: reorder-python-imports
+        entry: reorder-python-imports
+        language: system
+        args:
+          - "--unclassifiable-application-module=vault2vault"
+        types:
+          - python
+
+      - id: black
+        name: black
+        entry: black
+        language: system
+        types:
+          - python
+
+      - id: blacken-docs
+        name: blacken-docs
+        entry: blacken-docs
+        language: system
+        types:
+          - text
+
+      - id: mdformat
+        name: mdformat
+        entry: mdformat
+        language: system
+        args:
+          - "--number"
+          - "--wrap=90"
+        types:
+          - markdown
