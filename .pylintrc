@@ -11,14 +11,12 @@
 # --disable=W"
 disable=logging-fstring-interpolation
         ,logging-format-interpolation
-        ,logging-not-lazy
         ,bad-continuation
         ,line-too-long
         ,ungrouped-imports
         ,typecheck
         ,wrong-import-order
         ,wrong-import-position
-        ,inconsistent-mro
 
 
 [REPORTS]
