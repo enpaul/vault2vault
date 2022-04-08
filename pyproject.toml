@@ -17,7 +17,7 @@ classifiers = [
   "Framework :: Ansible",
   "Intended Audience :: Developers",
   "Intended Audience :: Information Technology",
-  "Intended Audience :: Systems Administrators",
+  "Intended Audience :: System Administrators",
   "License :: OSI Approved :: MIT License",
   "Natural Language :: English",
   "Operating System :: OS Independent",
