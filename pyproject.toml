@@ -33,10 +33,13 @@ classifiers = [
 [tool.poetry.scripts]
 vault2vault = "vault2vault:main"
 
+[tool.poetry.extras]
+ansible = ["ansible-core"]
+
 [tool.poetry.dependencies]
 python = "^3.6.1"
 "ruamel.yaml" = "^0.17.16"
-ansible-core = "^2.11.5"
+ansible-core = {version = "^2.11.5", optional = true}
 
 [tool.poetry.dev-dependencies]
 bandit = "^1.6.2"

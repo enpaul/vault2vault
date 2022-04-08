@@ -12,9 +12,16 @@ from typing import List
 from typing import Tuple
 from typing import Union
 
-import ansible.constants
-import ansible.parsing.vault
 import ruamel.yaml
+
+try:
+    import ansible.constants
+    import ansible.parsing.vault
+except ImportError:
+    print(
+        "FATAL: No supported version of Ansible could be imported under the current python interpreter"
+    )
+    sys.exit(1)
 
 
 __title__ = "vault2vault"
