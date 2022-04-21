@@ -64,8 +64,8 @@ and redevelopment. Here are the command line options:
 
 ```
 > vault2vault --help
-usage: vault2vault [-h] [--version] [--interactive] [-v] [-b] [-i VAULT_ID] [--ignore-undecryptable] [--old-pass-file OLD_PASS_FILE]
-                   [--new-pass-file NEW_PASS_FILE]
+usage: vault2vault [-h] [--version] [--interactive] [-v] [-b] [-i VAULT_ID] [--ignore-undecryptable]
+                   [--old-pass-file OLD_PASS_FILE] [--new-pass-file NEW_PASS_FILE]
                    [paths ...]
 
 Recursively rekey ansible-vault encrypted files and in-line variables
@@ -76,13 +76,15 @@ positional arguments:
 options:
   -h, --help            show this help message and exit
   --version             Show program version and exit
-  --interactive         Step through files and variables interactively, prompting for confirmation before making each change
+  --interactive         Step through files and variables interactively, prompting for confirmation before making
+                        each change
   -v, --verbose         Increase verbosity; can be repeated
   -b, --backup          Write a backup of every file to be modified, suffixed with '.bak'
   -i VAULT_ID, --vault-id VAULT_ID
                         Limit rekeying to encrypted secrets with the specified Vault ID
   --ignore-undecryptable
-                        Ignore any file or variable that is not decryptable with the provided vault secret instead of raising an error
+                        Ignore any file or variable that is not decryptable with the provided vault secret instead
+                        of raising an error
   --old-pass-file OLD_PASS_FILE
                         Path to a file with the old vault password to decrypt secrets with
   --new-pass-file NEW_PASS_FILE
