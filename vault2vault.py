@@ -10,8 +10,6 @@ from typing import Any
 from typing import Iterable
 from typing import List
 from typing import Optional
-from typing import Tuple
-from typing import Union
 
 import ruamel.yaml
 
@@ -79,7 +77,9 @@ def _process_file(  # pylint: disable=too-many-statements
 
     logger.debug(f"Processing file {path}")
 
-    def _process_yaml_data(content: bytes, data: Any, ignore: bool, name: str = ""):
+    def _process_yaml_data(  # pylint: disable=too-many-locals
+        content: bytes, data: Any, ignore: bool, name: str = ""
+    ):
         if isinstance(data, dict):
             for key, value in data.items():
                 content = _process_yaml_data(
@@ -182,9 +182,13 @@ def _process_file(  # pylint: disable=too-many-statements
                 ]
             )
 
-            # 5. Finally, we actually replace the content. We also need to re-encode it back to bytes
-            #    because all file operations with vault are done in bytes mode
-            content = content_decoded.replace(padded_old_data, padded_new_data).encode()
+            # 5. Finally, we actually replace the content. This needs to have a count=1 so that if the same
+            #    encrypted block appears twice in the same file we only replace the first occurance of it,
+            #    otherwise the later replacement attempts will fail. We also need to re-encode it back to
+            #    bytes because all file operations with vault are done in bytes mode
+            content = content_decoded.replace(
+                padded_old_data, padded_new_data, 1
+            ).encode()
         return content
 
     with path.open("rb") as infile:
