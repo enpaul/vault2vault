@@ -20,17 +20,20 @@ but works recursively on encrypted files and in-line variables
 ## What is this?
 
 If you use [Ansible Vault](https://docs.ansible.com/ansible/latest/user_guide/vault.html)
-then you may have encountered the problem of needing to role your vault password. Maybe
+then you may have encountered the problem of needing to roll your vault password. Maybe
 you found it written down on a sticky note, maybe a coworker who knows it left the
 company, maybe you accidentally typed it into Slack when you thought the focus was on your
 terminal. Whatever, these things happen.
 
-The builtin tool Ansible provides,
+The built-in tool Ansible provides,
 [`ansible-vault rekey`](https://docs.ansible.com/ansible/latest/cli/ansible-vault.html#rekey),
-works suffers from two main drawbacks: first, it only works on vault encrypted files and
-not on vault encrypted YAML data; and second, it only works on a single vault encrypted
-file at a time. To rekey everything in a large project you'd need to write a script that
-goes through every file and rekeys everything in every format it can find.
+suffers from two main drawbacks:
+
+1. It only works on vault encrypted files and not on vault encrypted YAML data
+2. It only works on a single vault encrypted file at a time.
+
+To rekey everything in a large project you'd need to write a script that goes through
+every file and rekeys everything in every format it can find.
 
 This is that script.
 
