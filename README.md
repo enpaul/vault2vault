@@ -10,11 +10,13 @@ but works recursively on encrypted files and in-line variables
 [![Python Supported Versions](https://img.shields.io/pypi/pyversions/vault2vault)](https://www.python.org)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
-⚠️ **This project is alpha software and is under active development** ⚠️
+⚠️ **This project is beta software and is under active development** ⚠️
 
 - [What is this?](#what-is-this)
 - [Installing](#installing)
-- [Using](#using)
+- [Usage](#usage)
+  - [Recovering from a failed migration](#recovering-from-a-failed-migration)
+- [Roadmap](#roadmap)
 - [Developing](#developer-documentation)
 
 ## What is this?
@@ -56,44 +58,104 @@ install `vault2vault` using [PipX](https://pypa.github.io/pipx/) and the `ansibl
 pipx install vault2vault[ansible]
 ```
 
-**Note: vault2vault requires an Ansible installation to function. If you are installing to a standalone virtual environment (like with PipX) then you must install it with the `ansible` extra to ensure a version of Ansible is available to the application.**
+> Note: vault2vault requires an Ansible installation to function. If you are installing to a
+> standalone virtual environment (like with PipX) then you must install it with the
+> `ansible` extra to ensure a version of Ansible is available to the application.\*\*
 
-## Using
+## Usage
 
-These docs are pretty sparse, largely because this project is still under active design
-and redevelopment. Here are the command line options:
+> Note: the full command reference is available by running `vault2vault --help`
 
-```
-> vault2vault --help
-usage: vault2vault [-h] [--version] [--interactive] [-v] [-b] [-i VAULT_ID] [--ignore-undecryptable]
-                   [--old-pass-file OLD_PASS_FILE] [--new-pass-file NEW_PASS_FILE]
-                   [paths ...]
+Vault2Vault works with files in any arbitrary directory structures, so there is no need to
+have your Ansible project(s) structured in a specific way for the tool to work. The
+simplest usage of Vault2Vault is by passing the path to your Ansible project directory to
+the command:
 
-Recursively rekey ansible-vault encrypted files and in-line variables
-
-positional arguments:
-  paths                 Paths to search for Ansible Vault encrypted content
-
-options:
-  -h, --help            show this help message and exit
-  --version             Show program version and exit
-  --interactive         Step through files and variables interactively, prompting for confirmation before making
-                        each change
-  -v, --verbose         Increase verbosity; can be repeated
-  -b, --backup          Write a backup of every file to be modified, suffixed with '.bak'
-  -i VAULT_ID, --vault-id VAULT_ID
-                        Limit rekeying to encrypted secrets with the specified Vault ID
-  --ignore-undecryptable
-                        Ignore any file or variable that is not decryptable with the provided vault secret instead
-                        of raising an error
-  --old-pass-file OLD_PASS_FILE
-                        Path to a file with the old vault password to decrypt secrets with
-  --new-pass-file NEW_PASS_FILE
-                        Path to a file with the new vault password to rekey secrets with
+```bash
+vault2vault ./my-ansible-project/
 ```
 
-Please report any bugs or issues you encounter on
-[Github](https://github.com/enpaul/vault2vault/issues).
+The tool will prompt for the current vault password and the new vault password and then
+process every file under the provided path. You can also specify multiple paths and
+they'll all be processed together:
+
+```bash
+vault2vault \
+  ./my-ansible-project/playbooks/ \
+  ./my-ansible-project/host_vars/ \
+  ./my-ansible-project/group_vars/
+```
+
+To skip the interactive password prompts you can put the password in a file and have the
+tool read it in at runtime. The `--old-pass-file` and `--new-pass-file` parameters work
+the same way as the `--vault-password-file` option from the `ansible` command:
+
+```bash
+vault2vault ./my-ansible-project/ \
+  --old-pass-file=./oldpass.txt \
+  --new-pass-file=./newpass.txt
+```
+
+If you use multiple vault passwords in your project and want to roll them you'll need to
+run `vault2vault` once for each password you want to change. By default, `vault2vault`
+will fail with an error if it encounters vaulted data that it cannot decrypt with the
+provided current vault password. To change this behavior and instead just ignore any
+vaulted data that can't be decrypted (like, for example, if you have data encrypted with
+multiple vault passwords) you can pass the `--ignore-undecryptable` flag to turn the
+errors into warnings.
+
+> Please report any bugs or issues you encounter on
+> [Github](https://github.com/enpaul/vault2vault/issues).
+
+### Recovering from a failed migration
+
+This tool is still pretty early in it's development, and to be honest it hooks into
+Ansible's functionality in some fragile ways. I've tested as best I can to ensure it
+covers as many edge cases as possible, but there is still the chance that you might get
+partway through a password migration and then have the tool fail out, leaving half of your
+data successfully rekeyed and the other half not.
+
+In the spirit of the
+[Unix philosophy](https://hackaday.com/2018/09/10/doing-one-thing-well-the-unix-philosophy/)
+this tool does not include any built-in way to recover from this state. However, it can
+be done very effectively using a version control tool.
+
+If you are using Git to track your project files then you can use the command
+`git reset --hard` to restore all files to the state of the currently checked out commit.
+This does have the side effect of erasing any other un-committed work in the repository,
+so it's recommended to always have a clean working tree when using Vault2Vault.
+
+If you are not using a version control system to track your project files then you can
+create a temporary Git repository to use in the event of a migration failure:
+
+```bash
+cd my-project/
+
+# Initialize the new repository
+git init
+
+# Add and commit all your existing files to the git tree
+git add .
+git commit -m "initial commit"
+
+# Run vault migrations
+vault2vault ...
+
+# If no recovery is necessary, delete the git repository data
+rm -rf .git
+```
+
+## Roadmap
+
+This project is considered feature complete as of the
+[0.1.1](https://github.com/enpaul/vault2vault/releases/tag/0.1.1) release. As a result the
+roadmap focuses on stability and user experience ahead of a 1.0 release.
+
+- [ ] Reimplement core vaulted data processing function to enable multithreading
+- [ ] Implement multithreading for performance in large environments
+- [ ] Add unit tests
+- [ ] Add integration tests
+- [ ] Redesign logging messages to improve clarity and consistency
 
 ## Developer Documentation
 
