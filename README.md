@@ -27,13 +27,11 @@ terminal. Whatever, these things happen.
 
 The built-in tool Ansible provides,
 [`ansible-vault rekey`](https://docs.ansible.com/ansible/latest/cli/ansible-vault.html#rekey),
-suffers from two main drawbacks:
-
-1. It only works on vault encrypted files and not on vault encrypted YAML data
-2. It only works on a single vault encrypted file at a time.
-
-To rekey everything in a large project you'd need to write a script that goes through
-every file and rekeys everything in every format it can find.
+suffers from two main drawbacks: first, it only works on vault encrypted files and not on
+vault encrypted YAML data; and second, it only works on a single vault encrypted file at
+a time. To rekey everything in a large project you'd need to write a script that
+recursively goes through every file and rekeys every encrypted file and YAML variable all
+at once.
 
 This is that script.
 
