@@ -28,7 +28,7 @@ except ImportError:
 
 __title__ = "vault2vault"
 __summary__ = "Recursively rekey ansible-vault encrypted files and in-line variables"
-__version__ = "0.1.1"
+__version__ = "0.1.2"
 __url__ = "https://github.com/enpaul/vault2vault/"
 __license__ = "MIT"
 __authors__ = ["Ethan Paul <24588726+enpaul@users.noreply.github.com>"]
@@ -73,6 +73,19 @@ def _process_file(  # pylint: disable=too-many-statements
     backup: bool,
     ignore: bool,
 ) -> None:
+    """Determine whether a filepath includes vaulted data and if so, rekey it
+
+    :param path: Path to the file to check
+    :param old: VaultLib object with the current (old) vault password encoded in it
+    :param new: VaultLib object with the target (new) vault password encoded in it
+    :param interactive: Whether to prompt interactively for confirmation before each
+                        rekey operation
+    :param backup: Whether to copy the original file to a backup before making any
+                   in-place changes
+    :param ignore: Whether to ignore any errors that come from failing to decrypt
+                   any vaulted data
+    """
+
     logger = logging.getLogger(__name__)
 
     logger.debug(f"Processing file {path}")
@@ -348,6 +361,7 @@ def _load_password(
                   the password will be prompted for interactively.
     :param desc: Description text to inject into the interactive password prompt. Useful when using
                  this function multiple times to identify different passwords to the user.
+    :param confirm: Whether to prompt twice for the input and check that the two inputs match
     :returns: Populated vault secret object with the loaded password
     """
 
