@@ -8,7 +8,7 @@
 set -e;
 
 CI_CACHE=$HOME/.cache;
-POETRY_VERSION=1.1.12;
+POETRY_VERSION=1.3.2;
 
 mkdir --parents "$CI_CACHE";
 
@@ -27,8 +27,9 @@ poetry run pip --version;
 
 poetry install \
   --quiet \
-  --remove-untracked \
-  --no-ansi;
+  --sync \
+  --no-ansi \
+  --only ci;
 
 poetry env info;
 poetry run tox --version;
