@@ -68,8 +68,10 @@ toml = {version = "^0.10.1", python = "^3.6"}
 typing-extensions = {version = "^4.5.0", python = ">3.8"}
 
 [tool.poetry.group.ci.dependencies]
-tox = {version = "^3.20.0", python = "^3.10"}
-tox-poetry-installer = {version = "^0.10.1", extras = ["poetry"], python = "^3.10"}
+# The python versions here need to match the lowest python version
+# used in CI
+tox = {version = "^3.20.0", python = "^3.7"}
+tox-poetry-installer = {version = "^0.10.1", extras = ["poetry"], python = "^3.7"}
 
 [build-system]
 requires = ["poetry-core>=1.1.0"]

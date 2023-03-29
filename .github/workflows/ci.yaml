@@ -5,6 +5,8 @@ on:
     types: ["opened", "synchronize"]
   push:
     branches: ["devel"]
+env:
+  POETRY_VERSION: 1.4.1
 jobs:
   Test:
     name: Python ${{ matrix.python.version }}
