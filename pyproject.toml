@@ -22,7 +22,6 @@ classifiers = [
   "Natural Language :: English",
   "Operating System :: OS Independent",
   "Programming Language :: Python :: 3",
-  "Programming Language :: Python :: 3.6",
   "Programming Language :: Python :: 3.7",
   "Programming Language :: Python :: 3.8",
   "Programming Language :: Python :: 3.9",
@@ -38,7 +37,7 @@ vault2vault = "vault2vault:main"
 ansible = ["ansible-core"]
 
 [tool.poetry.dependencies]
-python = "^3.6.1"
+python = "^3.7"
 "ruamel.yaml" = "^0.17.16"
 ansible-core = {version = "^2.11.5", optional = true}
 
@@ -63,16 +62,17 @@ safety = {version = "^2.2.0", python = "^3.10"}
 poetry = {version = "^1.2.0", python = "^3.10"}
 
 [tool.poetry.group.test.dependencies]
-pytest = {version = "^6.0.2", python = "^3.6"}
-pytest-cov = {version = "^2.10.1", python = "^3.6"}
-toml = {version = "^0.10.1", python = "^3.6"}
-typing-extensions = {version = "^4.5.0", python = ">3.8"}
+pytest = {version = "^6.0.2"}
+pytest-cov = {version = "^2.10.1"}
+toml = {version = "^0.10.1"}
+typing-extensions = {version = "^4.5.0", python = "^3.8"}
 
 [tool.poetry.group.ci.dependencies]
-# The python versions here need to match the lowest python version
-# used in CI
-tox = {version = "^3.20.0", python = "^3.7"}
-tox-poetry-installer = {version = "^0.10.1", extras = ["poetry"], python = "^3.7"}
+tox = {version = "^3.20.0"}
+tox-poetry-installer = {version = "^0.10.1", extras = ["poetry"]}
+# This doesn't get installed under py3.7 for some reason, but it's
+# required for poetry. Will need to debug this more in the future
+backports-cached-property = "^1.0.2"
 
 [build-system]
 requires = ["poetry-core>=1.1.0"]

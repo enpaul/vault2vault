@@ -28,9 +28,9 @@ poetry --version --no-ansi;
 poetry run pip --version;
 
 poetry install \
-  --quiet \
   --sync \
   --no-ansi \
+  --no-root \
   --only ci;
 
 poetry env info;
