@@ -22,11 +22,11 @@ classifiers = [
   "Natural Language :: English",
   "Operating System :: OS Independent",
   "Programming Language :: Python :: 3",
-  "Programming Language :: Python :: 3.6",
   "Programming Language :: Python :: 3.7",
   "Programming Language :: Python :: 3.8",
   "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: Implementation :: CPython"
 ]
 
@@ -37,30 +37,43 @@ vault2vault = "vault2vault:main"
 ansible = ["ansible-core"]
 
 [tool.poetry.dependencies]
-python = "^3.6.1"
+python = "^3.7"
 "ruamel.yaml" = "^0.17.16"
 ansible-core = {version = "^2.11.5", optional = true}
 
-[tool.poetry.dev-dependencies]
-bandit = "^1.6.2"
-black = { version = "^21.9b0", allow-prereleases = true, python = "^3.7" }
-blacken-docs = "^1.8.0"
-ipython = { version = "^7.18.1", python = "^3.7" }
-mypy = "^0.800"
-pre-commit = "^2.7.1"
-pre-commit-hooks = "^3.3.0"
-pylint = "^2.4.4"
-pytest = "^6.0.2"
-pytest-cov = "^2.10.1"
-reorder-python-imports = "^2.3.5"
-safety = "^1.9.0"
-toml = "^0.10.1"
-tox = "^3.20.0"
-tox-poetry-installer = { version = "^0.8.1", extras = ["poetry"] }
-types-toml = "^0.10.4"
-mdformat = "^0.6.4"
-mdformat-gfm = "^0.2"
+[tool.poetry.group.dev.dependencies]
+black = {version = "^23.1.0", python = "^3.10"}
+blacken-docs = {version = "^1.13.0", python = "^3.10"}
+ipython = {version = "^8.10.1", python = "^3.10"}
+mdformat = {version = "^0.7.16", python = "^3.10"}
+mdformat-gfm = {version = "^0.3.5", python = "^3.10"}
+mypy = {version = "^1.1.1", python = "^3.10"}
+pre-commit = {version = "^2.7.1", python = "^3.10"}
+pre-commit-hooks = {version = "^3.3.0", python = "^3.10"}
+pylint = {version = "^2.4.4", python = "^3.10"}
+reorder-python-imports = {version = "^2.3.5", python = "^3.10"}
+types-toml = {version = "^0.10.4", python = "^3.10"}
+# Implicit python version check fails for this one
+packaging = {version = "^23.0", python = "^3.10"}
+
+[tool.poetry.group.security.dependencies]
+bandit = {version = "^1.6.2", python = "^3.10"}
+safety = {version = "^2.2.0", python = "^3.10"}
+poetry = {version = "^1.2.0", python = "^3.10"}
+
+[tool.poetry.group.test.dependencies]
+pytest = {version = "^6.0.2"}
+pytest-cov = {version = "^2.10.1"}
+toml = {version = "^0.10.1"}
+typing-extensions = {version = "^4.5.0", python = "^3.8"}
+
+[tool.poetry.group.ci.dependencies]
+tox = {version = "^3.20.0"}
+tox-poetry-installer = {version = "^0.10.1", extras = ["poetry"]}
+# This doesn't get installed under py3.7 for some reason, but it's
+# required for poetry. Will need to debug this more in the future
+backports-cached-property = "^1.0.2"
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
+requires = ["poetry-core>=1.1.0"]
 build-backend = "poetry.core.masonry.api"
