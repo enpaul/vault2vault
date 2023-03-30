@@ -30,10 +30,9 @@ terminal. Whatever, these things happen.
 The built-in tool Ansible provides,
 [`ansible-vault rekey`](https://docs.ansible.com/ansible/latest/cli/ansible-vault.html#rekey),
 suffers from two main drawbacks: first, it only works on vault encrypted files and not on
-vault encrypted YAML data; and second, it only works on a single vault encrypted file at
-a time. To rekey everything in a large project you'd need to write a script that
-recursively goes through every file and rekeys every encrypted file and YAML variable all
-at once.
+vault encrypted YAML data; and second, it only works on a single vault encrypted file at a
+time. To rekey everything in a large project you'd need to write a script that recursively
+goes through every file and rekeys every encrypted file and YAML variable all at once.
 
 This is that script.
 
@@ -58,8 +57,8 @@ install `vault2vault` using [PipX](https://pypa.github.io/pipx/) and the `ansibl
 pipx install vault2vault[ansible]
 ```
 
-> Note: vault2vault requires an Ansible installation to function. If you are installing to a
-> standalone virtual environment (like with PipX) then you must install it with the
+> Note: vault2vault requires an Ansible installation to function. If you are installing to
+> a standalone virtual environment (like with PipX) then you must install it with the
 > `ansible` extra to ensure a version of Ansible is available to the application.\*\*
 
 ## Usage
@@ -117,8 +116,8 @@ data successfully rekeyed and the other half not.
 
 In the spirit of the
 [Unix philosophy](https://hackaday.com/2018/09/10/doing-one-thing-well-the-unix-philosophy/)
-this tool does not include any built-in way to recover from this state. However, it can
-be done very effectively using a version control tool.
+this tool does not include any built-in way to recover from this state. However, it can be
+done very effectively using a version control tool.
 
 If you are using Git to track your project files then you can use the command
 `git reset --hard` to restore all files to the state of the currently checked out commit.
@@ -160,7 +159,8 @@ roadmap focuses on stability and user experience ahead of a 1.0 release.
 ## Developer Documentation
 
 All project contributors and participants are expected to adhere to the
-[Contributor Covenant Code of Conduct, v2](CODE_OF_CONDUCT.md) ([external link](https://www.contributor-covenant.org/version/2/0/code_of_conduct/)).
+[Contributor Covenant Code of Conduct, v2](CODE_OF_CONDUCT.md)
+([external link](https://www.contributor-covenant.org/version/2/0/code_of_conduct/)).
 
 The `devel` branch has the latest (and potentially unstable) changes. The stable releases
 are tracked on [Github](https://github.com/enpaul/vault2vault/releases),
