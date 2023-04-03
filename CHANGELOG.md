@@ -2,6 +2,14 @@
 
 See also: [Github Release Page](https://github.com/enpaul/vault2vault/releases).
 
+## Version 0.1.3
+
+View this release on: [Github](https://github.com/enpaul/vault2vault/releases/tag/0.1.3),
+[PyPI](https://pypi.org/project/vault2vault/0.1.3/)
+
+- Fix incorrect encoding specification when opening password files. Contributed by
+  [brycelowe](https://github.com/brycelowe) (#2)
+
 ## Version 0.1.2
 
 View this release on: [Github](https://github.com/enpaul/vault2vault/releases/tag/0.1.2),
