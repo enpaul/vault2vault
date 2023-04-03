@@ -369,7 +369,7 @@ def _load_password(
 
     if fpath:
         try:
-            with Path(fpath).resolve().open("rb", encoding="utf-8") as infile:
+            with Path(fpath).resolve().open("rb") as infile:
                 return VaultSecret(infile.read())
         except (FileNotFoundError, PermissionError) as err:
             raise RuntimeError(
