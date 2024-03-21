@@ -28,7 +28,7 @@ except ImportError:
 
 __title__ = "vault2vault"
 __summary__ = "Recursively rekey ansible-vault encrypted files and in-line variables"
-__version__ = "0.1.3"
+__version__ = "0.1.4"
 __url__ = "https://github.com/enpaul/vault2vault/"
 __license__ = "MIT"
 __authors__ = ["Ethan Paul <24588726+enpaul@users.noreply.github.com>"]
