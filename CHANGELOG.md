@@ -2,6 +2,13 @@
 
 See also: [Github Release Page](https://github.com/enpaul/vault2vault/releases).
 
+## Version 0.1.4
+
+View this release on: [Github](https://github.com/enpaul/vault2vault/releases/tag/0.1.4),
+[PyPI](https://pypi.org/project/vault2vault/0.1.4/)
+
+- Fix not stripping newlines from vault password files. (#5)
+
 ## Version 0.1.3
 
 View this release on: [Github](https://github.com/enpaul/vault2vault/releases/tag/0.1.3),
