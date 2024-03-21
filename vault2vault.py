@@ -370,7 +370,7 @@ def _load_password(
     if fpath:
         try:
             with Path(fpath).resolve().open("rb") as infile:
-                return VaultSecret(infile.read())
+                return VaultSecret(infile.read().strip())
         except (FileNotFoundError, PermissionError) as err:
             raise RuntimeError(
                 f"Specified vault password file '{fpath}' does not exist or is unreadable"
