@@ -15,7 +15,7 @@ INSTALL_POETRY_VERSION="${POETRY_VERSION:-1.3.2}";
 mkdir --parents "$CI_CACHE";
 
 command -v python;
-python --version;
+python3.10 --version;
 
 curl --location https://install.python-poetry.org \
   --output "$CI_CACHE/install-poetry.py" \
